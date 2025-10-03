@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import '../parametres_admin.dart';
+import 'parametres.dart';
+import 'gestion_utilisateurs.dart';
+import 'gestion_centres.dart';
 
 class AdminDashboard extends StatefulWidget {
   const AdminDashboard({Key? key}) : super(key: key);
@@ -280,7 +282,12 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 'Gérer Utilisateurs',
                 Icons.group,
                 Colors.blue,
-                () => print('Gestion utilisateurs'),
+                    () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => GestionUtilisateursScreen()),
+                  );
+                },
               ),
             ),
             const SizedBox(width: 12),
@@ -289,7 +296,12 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 'Centres de Santé',
                 Icons.local_hospital,
                 Colors.green,
-                () => print('Gestion centres'),
+                    () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => GestionCentresScreen()),
+                  );
+                },
               ),
             ),
           ],
@@ -302,7 +314,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 'Rapports',
                 Icons.assessment,
                 Colors.orange,
-                () => print('Voir rapports'),
+                    () => print('Voir rapports'),
               ),
             ),
             const SizedBox(width: 12),
@@ -311,7 +323,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 'Sécurité',
                 Icons.security,
                 Colors.red,
-                () => print('Paramètres sécurité'),
+                    () => print('Paramètres sécurité'),
               ),
             ),
           ],
