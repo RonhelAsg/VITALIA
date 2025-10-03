@@ -10,6 +10,7 @@ class LoginCenterScreen extends StatefulWidget {
 class _LoginCenterScreenState extends State<LoginCenterScreen> {
   final _idController = TextEditingController();
   final _emailController = TextEditingController();
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -18,7 +19,7 @@ class _LoginCenterScreenState extends State<LoginCenterScreen> {
     super.dispose();
   }
 
-  void _sendOtpToCenter() {
+  Future<void> _sendOtpToCenter() async {
     final vitaliaId = _idController.text.trim();
     final email = _emailController.text.trim();
 
@@ -29,8 +30,15 @@ class _LoginCenterScreenState extends State<LoginCenterScreen> {
       return;
     }
 
-    print('Envoi OTP à $email pour ID $vitaliaId');
-    // À COMPLÉTER AVEC ENVOI EMAIL
+    setState(() => _isLoading = true);
+
+    // Simulation de chargement
+    await Future.delayed(Duration(seconds: 1));
+
+    setState(() => _isLoading = false);
+
+    // Navigation directe vers le dashboard centre
+    Navigator.pushNamed(context, '/centre/dashboard');
   }
 
   @override
@@ -74,13 +82,15 @@ class _LoginCenterScreenState extends State<LoginCenterScreen> {
             const SizedBox(height: 30),
 
             ElevatedButton(
-              onPressed: _sendOtpToCenter,
+              onPressed: _isLoading ? null : _sendOtpToCenter,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
                 foregroundColor: Colors.white,
                 minimumSize: const Size(double.infinity, 50),
               ),
-              child: const Text(
+              child: _isLoading
+                  ? const CircularProgressIndicator(color: Colors.white)
+                  : const Text(
                 'Recevoir le code par email',
                 style: TextStyle(fontSize: 16),
               ),

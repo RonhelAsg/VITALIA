@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:country_picker/country_picker.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:vitalia/screens/auth/otp_verification_screen.dart';
 
 class LoginPatientScreen extends StatefulWidget {
   const LoginPatientScreen({Key? key}) : super(key: key);
@@ -14,7 +12,6 @@ class LoginPatientScreen extends StatefulWidget {
 class _LoginPatientScreenState extends State<LoginPatientScreen> {
   final _idController = TextEditingController();
   final _phoneController = TextEditingController();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   bool _isLoading = false;
 
   Country _selectedCountry = Country(
@@ -40,7 +37,6 @@ class _LoginPatientScreenState extends State<LoginPatientScreen> {
   Future<void> _sendOtpToPatient() async {
     final vitaliaId = _idController.text.trim();
     final phoneNumber = _phoneController.text.trim();
-    final fullPhoneNumber = '+${_selectedCountry.phoneCode}$phoneNumber';
 
     if (vitaliaId.isEmpty || phoneNumber.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -51,52 +47,16 @@ class _LoginPatientScreenState extends State<LoginPatientScreen> {
 
     setState(() => _isLoading = true);
 
-    try {
-      // 1. VÉRIFIER QUE L'ID VITALIA EXISTE DANS FIRESTORE
-      // (À IMPLÉMENTER PLUS TARD)
+    // Simulation de chargement
+    await Future.delayed(Duration(seconds: 1));
 
-      // 2. ENVOYER L'OTP AVEC FIREBASE AUTH
-      await _auth.verifyPhoneNumber(
-        phoneNumber: fullPhoneNumber,
-        verificationCompleted: (PhoneAuthCredential credential) {
-          // Auto-validation si le device est reconnu
-          setState(() => _isLoading = false);
-        },
-        verificationFailed: (FirebaseAuthException e) {
-          setState(() => _isLoading = false);
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Erreur: ${e.message}')),
-          );
-        },
-        codeSent: (String verificationId, int? forceResendingToken) {
-          setState(() => _isLoading = false);
-          // Naviguer vers l'écran de vérification OTP
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => OtpVerificationScreen(
-                verificationId: verificationId,
-                phoneNumber: fullPhoneNumber,
-                vitaliaId: vitaliaId,
-              ),
-            ),
-          );
-        },
-        codeAutoRetrievalTimeout: (String verificationId) {
-          setState(() => _isLoading = false);
-        },
-        timeout: const Duration(seconds: 60),
-      );
-    } catch (e) {
-      setState(() => _isLoading = false);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Erreur: $e')),
-      );
-    }
+    setState(() => _isLoading = false);
+
+    // Navigation directe vers le dashboard
+    Navigator.pushNamed(context, '/patient/dashboard');
   }
 
   void _formatPhoneNumber(String value) {
-    // Adaptation selon la longueur typique du pays
     final maxLength = _selectedCountry.example.length;
     if (value.length > maxLength) {
       _phoneController.text = value.substring(0, maxLength);
