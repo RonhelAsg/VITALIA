@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:vitalia/screens/centre/nouvelle_consultation.dart';
+import 'package:vitalia/screens/centre/planning.dart';
+import 'package:vitalia/screens/centre/dossiers_patients.dart';
+import 'package:vitalia/screens/centre/parametres.dart';
 
 class DashboardCenter extends StatelessWidget {
   const DashboardCenter({Key? key}) : super(key: key);
@@ -87,7 +91,10 @@ class DashboardCenter extends StatelessWidget {
                     Icons.add,
                     Colors.blue,
                         () {
-                      print('Nouvelle consultation');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const NouvelleConsultationScreen()),
+                      );
                     },
                   ),
                 ),
@@ -98,7 +105,10 @@ class DashboardCenter extends StatelessWidget {
                     Icons.schedule,
                     Colors.orange,
                         () {
-                      print('Voir planning');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const PlanningCentreScreen()),
+                      );
                     },
                   ),
                 ),
@@ -114,7 +124,10 @@ class DashboardCenter extends StatelessWidget {
                     Icons.folder,
                     Colors.purple,
                         () {
-                      print('Dossiers patients');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const DossiersPatientsCentreScreen()),
+                      );
                     },
                   ),
                 ),
@@ -125,7 +138,10 @@ class DashboardCenter extends StatelessWidget {
                     Icons.settings,
                     Colors.grey,
                         () {
-                      print('Paramètres');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const ParametresCentreScreen()),
+                      );
                     },
                   ),
                 ),

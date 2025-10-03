@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:vitalia/screens/patient/dossier_medical.dart';
+import 'package:vitalia/screens/patient/prise_rdv.dart';
+import 'package:vitalia/screens/patient/historique_consultation.dart';
+import 'package:vitalia/screens/patient/liste_centre_santé.dart';
+import 'package:vitalia/screens/patient/parametres.dart';
 
 class PatientDashboard extends StatefulWidget {
   const PatientDashboard({Key? key}) : super(key: key);
@@ -69,10 +74,16 @@ class _PatientDashboardState extends State<PatientDashboard> {
             onSelected: (value) {
               switch (value) {
                 case 'profile':
-                  print('Navigation vers profil complet');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const ParametresPatientScreen()),
+                  );
                   break;
                 case 'settings':
-                  print('Navigation vers paramètres');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const ParametresPatientScreen()),
+                  );
                   break;
                 case 'logout':
                   _showLogoutConfirmation();
@@ -212,8 +223,11 @@ class _PatientDashboardState extends State<PatientDashboard> {
               width: double.infinity,
               child: OutlinedButton(
                 onPressed: () {
-                  print('Voir les détails du RDV');
-                },
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const DossierMedicalScreen()),
+                );
+              },
                 child: const Text('Voir les détails'),
               ),
             ),
@@ -241,7 +255,10 @@ class _PatientDashboardState extends State<PatientDashboard> {
                 label: 'Dossier Médical',
                 color: Colors.blue,
                 onTap: () {
-                  print('Navigation vers dossier médical');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const DossierMedicalScreen()),
+                  );
                 },
               ),
             ),
@@ -252,7 +269,10 @@ class _PatientDashboardState extends State<PatientDashboard> {
                 label: 'Prendre RDV',
                 color: Colors.green,
                 onTap: () {
-                  print('Navigation vers prise de RDV');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const PriseRdvScreen()),
+                  );
                 },
               ),
             ),
@@ -267,7 +287,11 @@ class _PatientDashboardState extends State<PatientDashboard> {
                 label: 'Historique',
                 color: Colors.orange,
                 onTap: () {
-                  print('Navigation vers historique');
+                  // Cette page existe déjà dans le projet
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => HistoriqueConsultationsScreen()),
+                  );
                 },
               ),
             ),
@@ -278,7 +302,11 @@ class _PatientDashboardState extends State<PatientDashboard> {
                 label: 'Centres',
                 color: Colors.purple,
                 onTap: () {
-                  print('Navigation vers centres de santé');
+                  // Cette page existe déjà dans le projet
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => ListeCentreSanteScreen()),
+                  );
                 },
               ),
             ),
@@ -357,7 +385,10 @@ class _PatientDashboardState extends State<PatientDashboard> {
             ),
             TextButton(
               onPressed: () {
-                print('Voir tout l\'historique');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => HistoriqueConsultationsScreen()),
+                );
               },
               child: const Text('Voir tout'),
             ),

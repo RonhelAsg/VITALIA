@@ -1,5 +1,41 @@
 import 'package:flutter/material.dart';
 
+class ListeCentreSanteScreen extends StatelessWidget {
+  const ListeCentreSanteScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final centres = [
+      {
+        'nom': 'Centre de Santé de Dakar',
+        'adresse': '123 Rue de la Paix, Dakar',
+      },
+      {
+        'nom': 'Clinique Sainte-Marie',
+        'adresse': '456 Avenue des Palmiers, Thiès',
+      },
+      {
+        'nom': 'Hôpital Général de Saint-Louis',
+        'adresse': '789 Boulevard du Fleuve, Saint-Louis',
+      },
+    ];
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Centres de Santé'),
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
+      ),
+      body: ListView.builder(
+        itemCount: centres.length,
+        itemBuilder: (context, index) {
+          return CentreSanteItem(centre: centres[index]);
+        },
+      ),
+    );
+  }
+}
+
 class CentreSanteItem extends StatelessWidget {
   final Map<String, dynamic> centre;
 
