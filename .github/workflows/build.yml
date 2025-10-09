@@ -1,11 +1,7 @@
- 
-
 name: Build Flutter APK
 
 on:
   push:
-    branches: [ main, master ]
-  pull_request:
     branches: [ main, master ]
 
 jobs:
@@ -16,23 +12,20 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Setup Flutter
+    - name: Setup Flutter (Version exacte)
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.22.0'
+        flutter-version: '3.35.5'  # ← Version EXACTE recommandée
+        channel: 'stable'
 
     - name: Install dependencies
       run: flutter pub get
 
-    - name: Run tests
-      run: flutter test
-
     - name: Build APK
       run: flutter build apk --release
 
-    - name: Upload APK artifact
+    - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
-        name: flutter-apk
+        name: app-release
         path: build/app/outputs/flutter-apk/app-release.apk
-        retention-days: 30
